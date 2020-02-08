@@ -1,0 +1,3 @@
+[submodule "src/Cake.Recipe"]
+	path = src/Cake.Recipe
+	url = https://github.com/gavinjonesnz/Cake.Recipe.git

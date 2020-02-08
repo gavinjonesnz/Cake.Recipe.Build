@@ -1,0 +1,34 @@
+trigger:
+- develop
+- master
+
+pr:
+- develop
+
+steps:
+- checkout: self
+  clean: true
+  submodules: true
+  persistCredentials: true
+
+- task: PowerShell@2
+  displayName: Pre initialization
+  inputs:
+      filePath: ./pre.ps1
+      pwsh: true
+  env:
+      GITHUB_API_TOKEN: $(GITHUB-API-TOKEN)
+      GITHUB_PASSWORD: $(GITHUB-PASSWORD)
+      GITHUB_USERNAME: $(GITHUB-USERNAME)
+
+- task: PowerShell@2
+  displayName: BuildPackagePublish
+  inputs:
+      filePath: './build.ps1'
+      arguments: '-target "BuildPackagePublish" -InformationAction Continue -Verbosity $(Verbosity)'
+      pwsh: true
+  env:
+      GITHUB_API_TOKEN: $(GITHUB-API-TOKEN)
+      GITHUB_PASSWORD: $(GITHUB-PASSWORD)
+      GITHUB_USERNAME: $(GITHUB-USERNAME)
+      JENKINS_HOME: "~/"
