@@ -5,6 +5,9 @@ trigger:
 pr:
 - develop
 
+variables:
+  - group: "Generic Build Variables"
+
 steps:
 - checkout: self
   clean: true
